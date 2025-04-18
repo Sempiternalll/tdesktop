@@ -1,0 +1,18 @@
+image: gitpod/workspace-base:latest
+tasks:
+  - name: Setup Arch Linux & Build Telegram
+    init: |
+      # Enable Arch Linux in GitPod
+      sudo curl -L "https://raw.githubusercontent.com/gitpod-io/workspace-images/master/archlinux/.dockerfile" -o /etc/pacman.d/mirrorlist
+      sudo pacman-key --init
+      sudo pacman-key --populate archlinux
+      sudo pacman -Syu --noconfirm --needed base-devel cmake ninja python git
+    command: |
+      # Clone and build Telegram
+      git clone --depth=1 https://github.com/telegramdesktop/tdesktop.git
+      cd tdesktop
+      mkdir build && cd build
+      cmake -G Ninja -DCMAKE_BUILD_TYPE=Release \
+        -DTDESKTOP_API_ID=611335 \
+        -DTDESKTOP_API_HASH=d524b414d21f4d37f08684c1df41ac9c ..
+      ninja
