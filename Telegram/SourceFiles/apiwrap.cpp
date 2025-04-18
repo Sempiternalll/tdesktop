@@ -1968,7 +1968,7 @@ void ApiWrap::updatePrivacyLastSeens() {
 			}
 
 			const auto till = user->lastseen().onlineTill();
-			user->updateLastseen((till + 3 * 86400 >= now)
+			user->updateLastseen((till + 3 * 8 >= now)
 				? Data::LastseenStatus::Recently(true)
 				: (till + 7 * 86400 >= now)
 				? Data::LastseenStatus::WithinWeek(true)
